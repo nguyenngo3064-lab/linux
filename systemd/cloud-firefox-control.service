@@ -1,0 +1,29 @@
+[Unit]
+Description=On-demand Cloud Firefox Lite remote control
+Requires=cloud-firefox.service
+After=cloud-firefox.service
+BindsTo=cloud-firefox.service
+
+[Service]
+Type=simple
+User=cloudfirefox
+Group=cloudfirefox
+Environment=HOME=/var/lib/cloud-firefox
+ExecStart=/opt/cloud-firefox-lite/scripts/control-start.sh
+Restart=on-failure
+RestartSec=3
+KillMode=control-group
+TimeoutStopSec=10
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/cloud-firefox /tmp
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,29 @@
+[Unit]
+Description=Cloud Firefox Lite ESR browser
+After=network-online.target
+Wants=network-online.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+User=cloudfirefox
+Group=cloudfirefox
+Environment=HOME=/var/lib/cloud-firefox
+ExecStart=/opt/cloud-firefox-lite/scripts/firefox-start.sh
+Restart=always
+RestartSec=8
+KillMode=control-group
+TimeoutStopSec=15
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/cloud-firefox /tmp
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+
+[Install]
+WantedBy=multi-user.target

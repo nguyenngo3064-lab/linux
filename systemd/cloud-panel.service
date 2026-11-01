@@ -1,0 +1,33 @@
+[Unit]
+Description=Cloud Firefox Lite HTTPS management panel
+After=network.target
+
+[Service]
+Type=simple
+User=cloudpanel
+Group=cloudpanel
+Environment=CFL_PASSWORD_FILE=/var/lib/cloud-firefox-panel/admin.json
+Environment=CFL_FRONTEND=/opt/cloud-firefox-lite/frontend
+Environment=CFL_TLS_CERT=/etc/ssl/certs/cloud-firefox-lite.pem
+Environment=CFL_TLS_KEY=/etc/ssl/private/cloud-firefox-lite.key
+Environment=CFL_PORT=8443
+WorkingDirectory=/opt/cloud-firefox-lite/backend
+ExecStart=/usr/bin/python3 /opt/cloud-firefox-lite/backend/app.py
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+ReadWritePaths=/var/lib/cloud-firefox-panel
+PrivateTmp=true
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictSUIDSGID=true
+LockPersonality=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target
